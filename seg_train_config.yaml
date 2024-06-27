@@ -1,0 +1,11 @@
+project: "segment_train_org_dataset"
+dataset: "../dataset"
+enlarge_train_dataset: "../Uncondi_train/enlarge_datasets"
+enlarge_and_org_choice: "both" # "enlarge" or "org" or "both"
+batch_size: 16
+epochs: 30
+lr: 0.0001
+image_size: 256
+seed: 7777777
+save_dir: "./save_dir"
+color_mode: "grayscale" # "rgb" or "grayscale"

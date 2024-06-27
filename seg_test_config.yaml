@@ -1,0 +1,6 @@
+project: "seg_test"
+dataset: "../dataset"
+batch_size: 16
+image_size: 256
+model_path: "./pretrained/bz32.pth"  # "./pretrained/bz32.pth" , "./save_dir/segment_train_org_dataset_epoch30.pt"
+color_mode: "grayscale" # "rgb" or "grayscale"

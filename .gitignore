@@ -1,0 +1,12 @@
+.env
+**/.env
+.idea/
+.vscode/
+__pycache__/
+modules/__pycache__/
+log/
+output/
+wandb/
+save_dir/
+pretrained/
+output_img/
