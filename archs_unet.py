@@ -50,7 +50,7 @@ class up_conv(nn.Module):   # 3x3 conv, stride=2, BN, ReLU
 class unet(nn.Module):
     def __init__(self, in_channels=3, out_channels=1):
         super(unet, self).__init__()
-        ch = [4, 8, 16, 32, 64]
+        ch = [8, 16, 32, 64, 128]
         input_channels = in_channels
         num_classes = out_channels
 

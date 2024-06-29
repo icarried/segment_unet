@@ -10,3 +10,5 @@ wandb/
 save_dir/
 pretrained/
 output_img/
+logs/
+unet_archs/
