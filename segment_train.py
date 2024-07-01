@@ -363,10 +363,10 @@ def main(args):
         test(model, test_dataloader, accelerator, metrics)
 
         # Save the model
-        if not os.path.exists(args.save_dir):
-            os.makedirs(args.save_dir)
+        if not os.path.exists(args.output_dir):
+            os.makedirs(args.output_dir)
         model_to_save = accelerator.unwrap_model(model)  # 获取原始模型
-        model_save_path = os.path.join(args.save_dir, f'{args.project}_of_{args.enlarge_and_org_choice}_epoch{args.num_epochs}.pt')
+        model_save_path = os.path.join(args.output_dir, f'{args.project}_of_{args.enlarge_and_org_choice}_epoch{args.num_epochs}.pt')
         torch.save(model_to_save.state_dict(), model_save_path)
         logger.info(f"Model saved at {model_save_path}")
 
