@@ -12,3 +12,4 @@ pretrained/
 output_img/
 logs/
 unet_archs/
+**.zip

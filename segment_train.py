@@ -114,15 +114,28 @@ def validate(model, dataloader, accelerator, metrics, epoch):
                 images_cell = inputs[:4].detach().cpu().numpy()
                 images_mask = targets[:4].detach().cpu().numpy()
 
-                # Ensure the temporary directory exists
-                temp_dir = tempfile.gettempdir()
-                wandb_media_dir = os.path.join(temp_dir, 'wandb-media')
-                if not os.path.exists(wandb_media_dir):
-                    os.makedirs(wandb_media_dir)
+                images_cell_list = []
+                images_mask_list = []
+
+                for i in range(4):
+                    if images_cell[i].shape[0] == 1:
+                        img_cell = Image.fromarray((images_cell[i].squeeze(0) * 255).astype(np.uint8), mode='L')
+                    else:
+                        img_cell = Image.fromarray((images_cell[i].transpose(1, 2, 0) * 255).astype(np.uint8))
+
+                    img_mask = Image.fromarray((images_mask[i].squeeze(0) * 255).astype(np.uint8), mode='L')
+                    images_cell_list.append(img_cell)
+                    images_mask_list.append(img_mask)
+
+                # # Ensure the temporary directory exists
+                # temp_dir = tempfile.gettempdir()
+                # wandb_media_dir = os.path.join(temp_dir, 'wandb-media')
+                # if not os.path.exists(wandb_media_dir):
+                #     os.makedirs(wandb_media_dir)
 
                 accelerator.log({
-                    "val_image": [wandb.Image(image) for image in images_cell],
-                    "val_mask": [wandb.Image(image) for image in images_mask],
+                    "val_image": [wandb.Image(img_cell) for img_cell in images_cell_list],
+                    "val_mask": [wandb.Image(img_mask) for img_mask in images_mask_list]
                 },
                 step=epoch)
             batch_count += 1
@@ -391,7 +404,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.config is not None:
-        with open(args.config, 'r') as f:
+        with open(args.config, 'r', encoding='utf-8') as f:
             config = yaml.safe_load(f)
             # 用config字典中的参数替换args
             for key, value in config.items():
